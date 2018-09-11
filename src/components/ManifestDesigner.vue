@@ -25,8 +25,6 @@
       <label>اندازه رپلیکا</label>
       <input type="number" min="1" v-model.number="manifest.spec.replicas" />
     </div>
-
-
   </div>
   <multipane-resizer></multipane-resizer>
   <div class="pane" :style="{ flexGrow: 1 }">
