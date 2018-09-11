@@ -14,6 +14,10 @@
       <input type="text" v-model="manifest.name"/>
     </div>
     <div>
+      <label>نام ایمیج</label>
+      <input type="text" v-model="manifest.spec.image" />
+    </div>
+    <div>
       <label>پورت سرویس</label>
       <input type="number" min="1" v-model.number="manifest.spec.port" />
     </div>
@@ -22,16 +26,7 @@
       <input type="number" min="1" v-model.number="manifest.spec.replicas" />
     </div>
 
-    <div>
-      <input type="text" v-model="manifest.spec.image" />
-    </div>
-    <div>
-      <input type="button" value="click me" v-on:click="counter += 1" />
-      {{ counter }}
-    </div>
-    <div>
-      {{ manifest }}
-    </div>
+
   </div>
   <multipane-resizer></multipane-resizer>
   <div class="pane" :style="{ flexGrow: 1 }">
