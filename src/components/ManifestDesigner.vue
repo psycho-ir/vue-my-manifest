@@ -81,6 +81,7 @@ export default {
   computed: {
     yml: function () {
       console.log('manifest', this.manifest)
+      Object.keys(this.manifest).forEach(key => this.manifest[key] === undefined || this.manifest[key] === '' ? delete this.manifest[key] : '')
       return jsyml.safeDump(this.manifest, {sortKeys: true, skipInvalid: true})
     }
   },
