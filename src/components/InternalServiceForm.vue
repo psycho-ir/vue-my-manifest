@@ -1,7 +1,7 @@
 <template>
   <div>
-    <form-wizard>
-      <tab-content title="عمومی">
+    <form-wizard title="Service Manifest Wizard" subtitle="Describe an external service">
+      <tab-content title="General">
         <vue-form-generator :model="spec"
                             :schema="generalSchema"
         ></vue-form-generator>
@@ -25,7 +25,7 @@
         </div>
       </tab-content>
       <tab-content title="Healthcheck Configuration">
-        Yuhuuu! This seems pretty damn simple
+        Healthcheck design
       </tab-content>
     </form-wizard>
   </div>
@@ -46,7 +46,7 @@ export default {
         fields: [{
           type: 'input',
           inputType: 'text',
-          label: 'نام ایمیج',
+          label: 'Image Name',
           model: 'image',
           required: true,
           styleClasses: 'col-xs-6'
@@ -54,7 +54,7 @@ export default {
           type: 'input',
           inputType: 'number',
           min: 1,
-          label: 'تعداد رپلیکا',
+          label: 'Replicas',
           model: 'replicas',
           required: true,
           styleClasses: 'col-xs-6'

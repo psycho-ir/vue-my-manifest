@@ -2,36 +2,37 @@
   <div>
     <multipane class="vertical-panes" layout="vertical" :style="{height: '800px'}">
       <div class="pane manifest-form" :style="{ minWidth: '100px', width: '50%', maxWidth: '50%' }">
-      <div v-if="selectedKind === '' ">
-        <vue-form-generator :model="manifest"
-                            :schema="kindSchema"
-                            :options="formOptions"
-        >
-        </vue-form-generator>
-        <input type="button" value="start" @click="selectedKind = manifest.kind"/>
-      </div>
-      <div v-if="selectedKind !== '' ">
-        <input type="button" value="Resert" @click="selectedKind = ''"/>
-      </div>
-        <div v-if="selectedKind === 'InternalService'" >
+        <div v-if="selectedKind === '' ">
+          <b-form-group label="Service Type">
+            <b-form-select v-model="manifest.kind" :options="options" >
+              <template slot="first">
+                <!-- this slot appears above the options from 'options' prop -->
+                <option :value="null" disabled>-- Please select a service type --</option>
+              </template>
+              <!-- these options will appear after the ones from 'options' prop -->
+              <option value="ExternalService">External Service</option>
+              <option value="InternalService">Internal Service</option>
+              <option value="ManagedService">Managed Service</option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group label="Service Name">
+            <b-form-input v-model="manifest.name"></b-form-input>
+          </b-form-group>
+          <b-button variant="outline-success" @click="selectedKind = manifest.kind">Select</b-button>
+        </div>
+        <div v-if="selectedKind !== '' ">
+          <b-button variant="outline-success" @click="selectedKind = ''">Reset</b-button>
+        </div>
+        <div v-if="selectedKind === 'InternalService'">
           <internal-service-form v-bind:spec="manifest.spec">
           </internal-service-form>
-        </div>
-
-        <div>
-          <label>پورت سرویس</label>
-          <input type="number" min="1" v-model.number="manifest.spec.port"/>
-        </div>
-        <div>
-          <label>اندازه رپلیکا</label>
-          <input type="number" min="1" v-model.number="manifest.spec.replicas"/>
         </div>
       </div>
       <multipane-resizer></multipane-resizer>
       <div class="pane" :style="{ flexGrow: 1 }">
         <editor v-model="yml" @init="editorInit" lang="yaml" theme="twilight" width="100%" height="100%"></editor>
       </div>
-  </multipane>
+    </multipane>
   </div>
 </template>
 
