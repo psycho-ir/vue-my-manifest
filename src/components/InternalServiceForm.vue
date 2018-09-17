@@ -11,7 +11,7 @@
         <div class="wrapper">
            <input  class="form-control"
           type="text"
-          v-model="currentVolume.volume_path" />
+          v-model="currentVolume.mount_path" />
          </div>
         <label>Storage sub path</label>
         <div class="wrapper">
@@ -19,8 +19,15 @@
           type="text"
           v-model="currentVolume.sub_path" />
          </div>
-        <input type="button" @click=" spec.volume_mounts.push(currentVolume); currentVolume={}" value="add"/>
-        <div v-for="vm in spec.volume_mounts" v-bind:key="vm.volume_path">
+        <div class="wrapper">
+          <b-button @click=" spec.volume_mounts.push(currentVolume); currentVolume={}">Add</b-button>
+        </div>
+        <b-table striped hover :fields="fields" :items="spec.volume_mounts">
+          <template slot="show_details" slot-scope="row">
+              <b-button size="sm" variant="danger" @click="spec.volume_mounts = spec.volume_mounts.filter(i => i != row.item)">remove</b-button>
+          </template>
+        </b-table>
+        <div v-for="vm in spec.volume_mounts" v-bind:key="vm.mount_path">
           {{vm}} <span @click="spec.volume_mounts = spec.volume_mounts.filter(i => i != vm)">x</span>
         </div>
       </tab-content>
@@ -34,13 +41,15 @@
 
 import VueFormGenerator from 'vue-form-generator'
 import {FormWizard, TabContent} from 'vue-form-wizard'
+import VolumeMountForm from './VolumeMountForm'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 
 export default {
-  name: 'InternalServiceForm',
+  name: 'VolumeMountForm',
   props: ['spec'],
   data () {
     return {
+      fields: [ 'mount_path', 'sub_path', 'show_details' ],
       currentVolume: {},
       generalSchema: {
         fields: [{
@@ -64,49 +73,9 @@ export default {
   },
   components: {
     'vue-form-generator': VueFormGenerator.component,
+    VolumeMountForm,
     FormWizard,
     TabContent
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-
-  .vertical-panes {
-    width: 100%;
-    height: 400px;
-    border: 1px solid #ccc;
-  }
-
-  .vertical-panes > .pane {
-    text-align: left;
-    padding: 15px;
-    overflow: hidden;
-    background: #eee;
-  }
-
-  .vertical-panes > .pane ~ .pane {
-    border-left: 1px solid #ccc;
-  }
-
-  .manifest-form {
-  }
-</style>
