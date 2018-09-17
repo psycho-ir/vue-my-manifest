@@ -56,7 +56,11 @@ export default {
       counter: 0,
       manifest: {
         spec: {
-          volume_mounts: []
+          volume_mounts: [],
+          readiness_probe: {
+            http_get: {}
+          },
+          liveness_probe: {}
         }
       },
       kindSchema: {
