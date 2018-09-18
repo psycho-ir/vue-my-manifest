@@ -101,6 +101,9 @@ export default {
       if (Object.keys(manifest.spec.liveness_probe).length === 0) {
         delete manifest.spec.liveness_probe
       }
+      if(manifest.spec.volume_mounts.length === 0){
+        delete manifest.spec.volume_mounts
+      }
       return jsyml.safeDump(manifest, {sortKeys: true, skipInvalid: true})
     }
   },
