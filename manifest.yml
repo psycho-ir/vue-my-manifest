@@ -1,7 +1,7 @@
 kind: ExternalService
 name: vue-my-manifest
 spec:
-  image: vue-my-manifest:v0.6
+  image: vue-my-manifest:v0.6.1
 
   resources:
     memory: 200Mi

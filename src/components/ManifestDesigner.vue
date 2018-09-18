@@ -1,6 +1,6 @@
 <template>
   <div>
-    <multipane class="vertical-panes" layout="vertical" :style="{height: '800px'}">
+    <multipane class="vertical-panes" layout="vertical" :style="{height: '1200px'}">
       <div class="pane manifest-form" :style="{ minWidth: '100px', width: '50%', maxWidth: '50%' }">
         <div v-if="selectedKind === '' ">
           <b-form-group label="Service Type">
@@ -60,7 +60,9 @@ export default {
           readiness_probe: {
             http_get: {}
           },
-          liveness_probe: {}
+          liveness_probe: {
+            http_get: {}
+          }
         }
       },
       kindSchema: {

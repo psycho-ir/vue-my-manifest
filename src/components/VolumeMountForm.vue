@@ -4,14 +4,14 @@
         <b-form-input type="string"
                       v-model="currentVolume.mount_path"
                       required
-                      placeholder="Volume path">
+>
         </b-form-input>
       </b-form-group>
          <b-form-group  label="Storage sub path">
         <b-form-input type="string"
                       v-model="currentVolume.sub_path"
                       required
-                      placeholder="Storage sub path">
+                      >
         </b-form-input>
       </b-form-group>
       <b-form-group>
