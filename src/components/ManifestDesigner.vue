@@ -86,9 +86,22 @@ export default {
   },
   computed: {
     yml: function () {
-      console.log('manifest', this.manifest)
-      Object.keys(this.manifest).forEach(key => this.manifest[key] === undefined || this.manifest[key] === '' ? delete this.manifest[key] : '')
-      return jsyml.safeDump(this.manifest, {sortKeys: true, skipInvalid: true})
+      const manifest = JSON.parse(JSON.stringify(this.manifest))
+      console.log('manifest', manifest)
+      Object.keys(manifest).forEach(key => manifest[key] === undefined || manifest[key] === '' ? delete manifest[key] : '')
+      if (Object.keys(manifest.spec.liveness_probe.http_get).length === 0) {
+        delete manifest.spec.liveness_probe.http_get
+      }
+      if (Object.keys(manifest.spec.readiness_probe.http_get).length === 0) {
+        delete manifest.spec.readiness_probe.http_get
+      }
+      if (Object.keys(manifest.spec.readiness_probe).length === 0) {
+        delete manifest.spec.readiness_probe
+      }
+      if (Object.keys(manifest.spec.liveness_probe).length === 0) {
+        delete manifest.spec.liveness_probe
+      }
+      return jsyml.safeDump(manifest, {sortKeys: true, skipInvalid: true})
     }
   },
   methods: {
